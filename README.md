@@ -1,6 +1,6 @@
 Pie mod [pie]
 
-Piemod for minetest adds six cakes to the game which can be crafted using items
+Pie mod for minetest adds six cakes to the game which can be crafted using items
 from farming redo, mobs redo and Ethereal foods and then placed as a block or
 punched to eat a slice (or three).
 

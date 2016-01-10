@@ -37,7 +37,7 @@ local replace_pie = function(node, puncher, pos)
 		puncher:set_hp(h)
 	end
 
-	minetest.set_node(pos, {name = node.name})
+	minetest.swap_node(pos, {name = node.name})
 
 end
 
