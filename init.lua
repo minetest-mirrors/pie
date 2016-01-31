@@ -67,10 +67,10 @@ minetest.register_node("pie:"..pie.."_0", {
 minetest.register_node("pie:"..pie.."_1", {
 	description = "3/4"..desc,
 	paramtype = "light",
-	sunlight_propagates = false,
+	sunlight_propagates = true,
 	tiles = {
 		pie.."_top.png", pie.."_bottom.png", pie.."_side.png",
-		pie.."_side.png", pie.."_side.png", pie.."_side.png"
+		pie.."_side.png", pie.."_side.png", pie.."_inside.png"
 	},
 	groups = {not_in_creative_inventory = 1},
 	drawtype = "nodebox",
@@ -86,10 +86,10 @@ minetest.register_node("pie:"..pie.."_1", {
 minetest.register_node("pie:"..pie.."_2", {
 	description = "Half "..desc,
 	paramtype = "light",
-	sunlight_propagates = false,
+	sunlight_propagates = true,
 	tiles = {
 		pie.."_top.png", pie.."_bottom.png", pie.."_side.png",
-		pie.."_side.png", pie.."_side.png", pie.."_side.png"
+		pie.."_side.png", pie.."_side.png", pie.."_inside.png"
 	},
 	groups = {not_in_creative_inventory = 1},
 	drawtype = "nodebox",
@@ -105,10 +105,10 @@ minetest.register_node("pie:"..pie.."_2", {
 minetest.register_node("pie:"..pie.."_3", {
 	description = "Piece of "..desc,
 	paramtype = "light",
-	sunlight_propagates = false,
+	sunlight_propagates = true,
 	tiles = {
 		pie.."_top.png", pie.."_bottom.png", pie.."_side.png",
-		pie.."_side.png", pie.."_side.png", pie.."_side.png"
+		pie.."_side.png", pie.."_side.png", pie.."_inside.png"
 	},
 	groups = {not_in_creative_inventory = 1},
 	drawtype = "nodebox",  
@@ -198,4 +198,17 @@ minetest.register_craft({
 		{"farming:wheat", "farming:wheat", "farming:wheat"},
 		{"", "", ""}
 	},
+})
+
+-- Banana Cake
+register_pie("bana", "Banana Cake")
+
+minetest.register_craft({
+	output = "pie:bana_0",
+	recipe = {
+		{"ethereal:banana", "mobs:bucket_milk", "ethereal:banana"},
+		{"farming:sugar", "mobs:egg", "farming:sugar"},
+		{"farming:wheat", "farming:flour", "farming:wheat"},
+	},
+	replacements = {{ "mobs:bucket_milk", "bucket:bucket_empty"}}
 })

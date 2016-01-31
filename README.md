@@ -15,3 +15,4 @@ Released under WTFPL
 
 0.1 - Initial release
 0.2 - Added meat pie
+0.3 - Fix cake inside - Added banana cake
