@@ -53,7 +53,7 @@ minetest.register_node("pie:"..pie.."_0", {
 	},
 	inventory_image = pie.."_inv.png",
 	wield_image = pie.."_inv.png",
-	groups = {},
+	groups = {crumbly = 3},
 	drawtype = "nodebox",
 	node_box = {
 		type = "fixed",
