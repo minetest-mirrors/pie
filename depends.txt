@@ -4,3 +4,4 @@ hbhunger?
 farming?
 mobs?
 ethereal?
+stamina?

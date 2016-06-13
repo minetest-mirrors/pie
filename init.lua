@@ -1,5 +1,7 @@
+
 local hmod = minetest.get_modpath("hunger")
 local hbmod = minetest.get_modpath("hbhunger")
+local stmod = minetest.get_modpath("stamina")
 
 local replace_pie = function(node, puncher, pos)
 
@@ -30,6 +32,9 @@ local replace_pie = function(node, puncher, pos)
 		hbhunger.hunger[puncher:get_player_name()] = h
 		minetest.sound_play("hbhunger_eat_generic", {
 			pos = pos, gain = 0.7, hear_distance = 5})
+	elseif stmod then
+		stamina.amend_level(puncher, 4)
+		minetest.sound_play("stamina_eat", {to_player = name, gain = 0.7})
 	else
 		local h = puncher:get_hp()
 --print ("health is "..h)
