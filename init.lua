@@ -1,135 +1,168 @@
 
+-- check for available hunger mods
 local hmod = minetest.get_modpath("hunger")
 local hbmod = minetest.get_modpath("hbhunger")
 local stmod = minetest.get_modpath("stamina")
 
+-- eat pie slice function
 local replace_pie = function(node, puncher, pos)
 
+	-- is this my pie?
 	if minetest.is_protected(pos, puncher:get_player_name()) then
 		return
 	end
 
+	-- which size of pie did we hit?
 	local pie = node.name:split("_")[1]
 	local num = tonumber(node.name:split("_")[2])
 
+	-- eat slice or remove whole pie
 	if num == 3 then
 		node.name = "air"
 	elseif num < 3 then
 		node.name = pie .. "_" .. (num + 1)
 	end
 
-	if hmod then
-		local h = hunger.read(puncher)
---print ("hunger is "..h)
-		h = math.min(h + 4, 30)
-		local ok = hunger.update_hunger(puncher, h)
-		minetest.sound_play("hunger_eat", {
-			pos = pos, gain = 0.7, max_hear_distance = 5})
-	elseif hbmod then
-		local h = tonumber(hbhunger.hunger[puncher:get_player_name()])
---print ("hbhunger is "..h)
-		h = math.min(h + 4, 30)
-		hbhunger.hunger[puncher:get_player_name()] = h
-		minetest.sound_play("hbhunger_eat_generic", {
-			pos = pos, gain = 0.7, max_hear_distance = 5})
-	elseif stmod then
-		stamina.change(puncher, 4)
-		minetest.sound_play("stamina_eat", {
-			to_player = name, gain = 0.7, max_hear_distance = 5})
-	else
-		local h = puncher:get_hp()
---print ("health is "..h)
-		h = math.min(h + 4, 20)
-		puncher:set_hp(h)
-	end
-
 	minetest.swap_node(pos, {name = node.name})
 
+	-- Blockmen's hud_hunger mod
+	if hmod then
+
+		local h = hunger.read(puncher)
+--		print ("hunger is "..h)
+
+		h = math.min(h + 4, 30)
+
+		local ok = hunger.update_hunger(puncher, h)
+
+		minetest.sound_play("hunger_eat", {
+			pos = pos, gain = 0.7, max_hear_distance = 5})
+
+	-- Wuzzy's hbhunger mod
+	elseif hbmod then
+
+		local h = tonumber(hbhunger.hunger[puncher:get_player_name()])
+--		print ("hbhunger is "..h)
+
+		h = math.min(h + 4, 30)
+
+		hbhunger.hunger[puncher:get_player_name()] = h
+
+		minetest.sound_play("hbhunger_eat_generic", {
+			pos = pos, gain = 0.7, max_hear_distance = 5})
+
+	-- Sofar's stamina mod
+	elseif stmod then
+
+		stamina.change(puncher, 4)
+
+		minetest.sound_play("stamina_eat", {
+			to_player = name, gain = 0.7, max_hear_distance = 5})
+
+	-- none of the above found? add to health instead
+	else
+
+		local h = puncher:get_hp()
+--		print ("health is "..h)
+
+		h = math.min(h + 4, 20)
+
+		puncher:set_hp(h)
+	end
 end
 
+-- register pie bits
 local register_pie = function(pie, desc)
 
-minetest.register_node("pie:"..pie.."_0", {
-	description = desc,
-	paramtype = "light",
-	sunlight_propagates = false,
-	tiles = {
-		pie.."_top.png", pie.."_bottom.png", pie.."_side.png",
-		pie.."_side.png", pie.."_side.png", pie.."_side.png"
-	},
-	inventory_image = pie.."_inv.png",
-	wield_image = pie.."_inv.png",
-	groups = {crumbly = 3},
-	drawtype = "nodebox",
-	node_box = {
-		type = "fixed",
-		fixed = {{-0.45, -0.5, -0.45, 0.45, 0, 0.45}},
-	},
-	on_punch = function(pos, node, puncher, pointed_thing)
-		replace_pie(node, puncher, pos)
-	end,
-})
+	-- full pie
+	minetest.register_node("pie:" .. pie .. "_0", {
+		description = desc,
+		paramtype = "light",
+		sunlight_propagates = false,
+		tiles = {
+			pie .. "_top.png", pie .. "_bottom.png", pie .. "_side.png",
+			pie .. "_side.png", pie .. "_side.png", pie .. "_side.png"
+		},
+		inventory_image = pie .. "_inv.png",
+		wield_image = pie .. "_inv.png",
+		groups = {crumbly = 1, level = 2},
+		drawtype = "nodebox",
+		node_box = {
+			type = "fixed",
+			fixed = {{-0.45, -0.5, -0.45, 0.45, 0, 0.45}},
+		},
 
-minetest.register_node("pie:"..pie.."_1", {
-	description = "3/4"..desc,
-	paramtype = "light",
-	sunlight_propagates = true,
-	tiles = {
-		pie.."_top.png", pie.."_bottom.png", pie.."_side.png",
-		pie.."_side.png", pie.."_side.png", pie.."_inside.png"
-	},
-	groups = {not_in_creative_inventory = 1},
-	drawtype = "nodebox",
-	node_box = {
-		type = "fixed",
-		fixed = {{-0.45, -0.5, -0.25, 0.45, 0, 0.45}},
-	},
-	on_punch = function(pos, node, puncher, pointed_thing)
-		replace_pie(node, puncher, pos)
-	end,
-})
+		on_punch = function(pos, node, puncher, pointed_thing)
+			replace_pie(node, puncher, pos)
+		end,
+	})
 
-minetest.register_node("pie:"..pie.."_2", {
-	description = "Half "..desc,
-	paramtype = "light",
-	sunlight_propagates = true,
-	tiles = {
-		pie.."_top.png", pie.."_bottom.png", pie.."_side.png",
-		pie.."_side.png", pie.."_side.png", pie.."_inside.png"
-	},
-	groups = {not_in_creative_inventory = 1},
-	drawtype = "nodebox",
-	node_box = {
-		type = "fixed",
-		fixed = {{-0.45, -0.5, 0.0, 0.45, 0, 0.45}},
-	},
-	on_punch = function(pos, node, puncher, pointed_thing)
-		replace_pie(node, puncher, pos)
-	end,
-})
+	-- 3/4 pie
+	minetest.register_node("pie:" .. pie .. "_1", {
+		description = "3/4" .. desc,
+		paramtype = "light",
+		sunlight_propagates = true,
+		tiles = {
+			pie .. "_top.png", pie .. "_bottom.png", pie .. "_side.png",
+			pie .. "_side.png", pie .. "_side.png", pie .. "_inside.png"
+		},
+		groups = {not_in_creative_inventory = 1},
+		drawtype = "nodebox",
+		node_box = {
+			type = "fixed",
+			fixed = {{-0.45, -0.5, -0.25, 0.45, 0, 0.45}},
+		},
 
-minetest.register_node("pie:"..pie.."_3", {
-	description = "Piece of "..desc,
-	paramtype = "light",
-	sunlight_propagates = true,
-	tiles = {
-		pie.."_top.png", pie.."_bottom.png", pie.."_side.png",
-		pie.."_side.png", pie.."_side.png", pie.."_inside.png"
-	},
-	groups = {not_in_creative_inventory = 1},
-	drawtype = "nodebox",  
-	node_box = {
-		type = "fixed",
-		fixed = {{-0.45, -0.5, 0.25, 0.45, 0, 0.45}},
-	},
-	on_punch = function(pos, node, puncher, pointed_thing)
-		replace_pie(node, puncher, pos)
-	end,
-})
+		on_punch = function(pos, node, puncher, pointed_thing)
+			replace_pie(node, puncher, pos)
+		end,
+	})
+
+	-- 1/2 pie
+	minetest.register_node("pie:" .. pie .. "_2", {
+		description = "Half " .. desc,
+		paramtype = "light",
+		sunlight_propagates = true,
+		tiles = {
+			pie .. "_top.png", pie .. "_bottom.png", pie .. "_side.png",
+			pie .. "_side.png", pie .. "_side.png", pie .. "_inside.png"
+		},
+		groups = {not_in_creative_inventory = 1},
+		drawtype = "nodebox",
+		node_box = {
+			type = "fixed",
+			fixed = {{-0.45, -0.5, 0.0, 0.45, 0, 0.45}},
+		},
+
+		on_punch = function(pos, node, puncher, pointed_thing)
+			replace_pie(node, puncher, pos)
+		end,
+	})
+
+	-- 1/4 pie
+	minetest.register_node("pie:" .. pie .. "_3", {
+		description = "Piece of " .. desc,
+		paramtype = "light",
+		sunlight_propagates = true,
+		tiles = {
+			pie .. "_top.png", pie .. "_bottom.png", pie .. "_side.png",
+			pie .. "_side.png", pie .. "_side.png", pie .. "_inside.png"
+		},
+		groups = {not_in_creative_inventory = 1},
+		drawtype = "nodebox",
+		node_box = {
+			type = "fixed",
+			fixed = {{-0.45, -0.5, 0.25, 0.45, 0, 0.45}},
+		},
+
+		on_punch = function(pos, node, puncher, pointed_thing)
+			replace_pie(node, puncher, pos)
+		end,
+	})
 
 end
 
--- Normal Cake
+-- normal cake
 register_pie("pie", "Cake")
 
 minetest.register_craft({
@@ -142,7 +175,7 @@ minetest.register_craft({
 	replacements = {{ "mobs:bucket_milk", "bucket:bucket_empty"}}
 })
 
--- Chocolate Cake
+-- chocolate cake
 register_pie("choc", "Chocolate Cake")
 
 minetest.register_craft({
@@ -155,7 +188,7 @@ minetest.register_craft({
 	replacements = {{ "mobs:bucket_milk", "bucket:bucket_empty"}}
 })
 
--- Strawberry Cheesecake
+-- strawberry cheesecake
 register_pie("scsk", "Strawberry Cheesecake")
 
 minetest.register_craft({
@@ -168,7 +201,7 @@ minetest.register_craft({
 	replacements = {{ "mobs:bucket_milk", "bucket:bucket_empty"}}
 })
 
--- Coffee Cake
+-- coffee cake
 register_pie("coff", "Coffee Cake")
 
 minetest.register_craft({
@@ -181,7 +214,7 @@ minetest.register_craft({
 	replacements = {{ "mobs:bucket_milk", "bucket:bucket_empty"}}
 })
 
--- Red Velvet Cake
+-- red velvet cake
 register_pie("rvel", "Red Velvet Cake")
 
 minetest.register_craft({
@@ -194,7 +227,7 @@ minetest.register_craft({
 	replacements = {{ "mobs:bucket_milk", "bucket:bucket_empty"}}
 })
 
--- Meat Cake
+-- meat cake
 register_pie("meat", "Meat Cake")
 
 minetest.register_craft({
@@ -206,7 +239,7 @@ minetest.register_craft({
 	},
 })
 
--- Banana Cake
+-- banana cake
 register_pie("bana", "Banana Cake")
 
 minetest.register_craft({
