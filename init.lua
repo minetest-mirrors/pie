@@ -57,7 +57,7 @@ local replace_pie = function(node, puncher, pos)
 		stamina.change(puncher, 4)
 
 		minetest.sound_play("stamina_eat", {
-			to_player = name, gain = 0.7, max_hear_distance = 5})
+			pos = pos, gain = 0.7, max_hear_distance = 5})
 
 	-- none of the above found? add to health instead
 	else
