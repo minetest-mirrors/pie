@@ -11,9 +11,10 @@ Support for hud/hunger, hbhunger and stamina has been added.
 
 https://forum.minetest.net/viewtopic.php?f=9&t=13285
 
-Released under WTFPL
 
-0.1 - Initial release
-0.2 - Added meat pie
-0.3 - Fix cake inside - Added banana cake
-0.4 - Added support for stamina mod
+Change log:
+
+- 0.1 - Initial release
+- 0.2 - Added meat pie
+- 0.3 - Fix cake inside - Added banana cake
+- 0.4 - Added support for stamina mod
