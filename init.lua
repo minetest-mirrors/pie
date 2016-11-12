@@ -251,3 +251,21 @@ minetest.register_craft({
 	},
 	replacements = {{ "mobs:bucket_milk", "bucket:bucket_empty"}}
 })
+
+-- add lucky blocks
+
+if minetest.get_modpath("lucky_block") then
+lucky_block:add_blocks({
+	{"nod", "pie:pie_0", 0},
+	{"nod", "pie:choc_0", 0},
+	{"nod", "pie:coff_0", 0},
+	{"tro", "pie:pie_0"},
+	{"nod", "pie:rvel_0", 0},
+	{"nod", "pie:scsk_0", 0},
+	{"nod", "pie:bana_0", 0},
+	{"nod", "pie:meat_0", 0},
+	{"lig"},
+})
+end
+
+print ("[MOD] Pie loaded")
