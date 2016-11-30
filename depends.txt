@@ -1,8 +1,5 @@
 default
 hunger?
 hbhunger?
-farming?
-mobs?
-ethereal?
 stamina?
 lucky_block?
