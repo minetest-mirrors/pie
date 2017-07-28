@@ -252,6 +252,32 @@ minetest.register_craft({
 	replacements = {{ "mobs:bucket_milk", "bucket:bucket_empty"}}
 })
 
+-- bread pudding
+register_pie("brpd","Bread Pudding")
+
+minetest.register_craft({
+	output = "pie:brpd_0",
+	recipe = {
+		{"farming:bread", "mobs:bucket_milk", "farming:bread"},
+		{"farming:sugar", "mobs:egg", "farming:sugar"},
+		{"farming:wheat", "farming:flour", "farming:wheat"},
+	},
+	replacements = {{ "mobs:bucket_milk", "bucket:bucket_empty"}}
+})
+
+-- orange pie
+register_pie("orange","Orange Pie")
+
+minetest.register_craft({
+	output = "pie:orange_0",
+	recipe = {
+		{"ethereal:orange", "mobs:bucket_milk", "ethereal:orange"},
+		{"farming:sugar", "mobs:egg", "farming:sugar"},
+		{"farming:wheat", "farming:flour", "farming:wheat"},
+	},
+	replacements = {{ "mobs:bucket_milk", "bucket:bucket_empty"}}
+})
+
 -- add lucky blocks
 
 if minetest.get_modpath("lucky_block") then
@@ -263,6 +289,9 @@ lucky_block:add_blocks({
 	{"nod", "pie:rvel_0", 0},
 	{"nod", "pie:scsk_0", 0},
 	{"nod", "pie:bana_0", 0},
+	{"nod", "pie:orange_0", 0},
+	{"tro", "pie:orange_0", "default_place_node_hard", true},
+	{"nod", "pie:brpd_0", 0},
 	{"nod", "pie:meat_0", 0},
 	{"lig"},
 })

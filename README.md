@@ -18,5 +18,6 @@ Change log:
 - 0.2 - Added meat pie
 - 0.3 - Fix cake inside - Added banana cake
 - 0.4 - Added support for stamina mod
+- 0.5 - Added Orange and Bread cake (thanks to CalebDavis)
 
-Lucky Blocks: 9
+Lucky Blocks: 12
