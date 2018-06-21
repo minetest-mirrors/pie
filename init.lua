@@ -307,4 +307,11 @@ lucky_block:add_blocks({
 end
 
 
+-- some aliases for older pie mod items
+minetest.register_alias("pie:apie_0", "pie:pie_0")
+minetest.register_alias("pie:apie_1", "pie:pie_1")
+minetest.register_alias("pie:apie_2", "pie:pie_2")
+minetest.register_alias("pie:apie_3", "pie:pie_3")
+
+
 print ("[MOD] Pie loaded")
