@@ -97,6 +97,7 @@ local register_pie = function(pie, desc)
 	minetest.register_node("pie:" .. pie .. "_0", {
 		description = desc,
 		paramtype = "light",
+		use_texture_alpha = "clip",
 		sunlight_propagates = false,
 		tiles = {
 			pie .. "_top.png", pie .. "_bottom.png", pie .. "_side.png",
@@ -107,18 +108,19 @@ local register_pie = function(pie, desc)
 		drawtype = "nodebox",
 		node_box = {
 			type = "fixed",
-			fixed = {{-0.45, -0.5, -0.45, 0.45, 0, 0.45}},
+			fixed = {{-0.45, -0.5, -0.45, 0.45, 0, 0.45}}
 		},
 
 		on_punch = function(pos, node, puncher, pointed_thing)
 			replace_pie(node, puncher, pos)
-		end,
+		end
 	})
 
 	-- 3/4 pie
 	minetest.register_node("pie:" .. pie .. "_1", {
 		description = "3/4" .. desc,
 		paramtype = "light",
+		use_texture_alpha = "clip",
 		sunlight_propagates = true,
 		tiles = {
 			pie .. "_top.png", pie .. "_bottom.png", pie .. "_side.png",
@@ -129,18 +131,19 @@ local register_pie = function(pie, desc)
 		drawtype = "nodebox",
 		node_box = {
 			type = "fixed",
-			fixed = {{-0.45, -0.5, -0.25, 0.45, 0, 0.45}},
+			fixed = {{-0.45, -0.5, -0.25, 0.45, 0, 0.45}}
 		},
 
 		on_punch = function(pos, node, puncher, pointed_thing)
 			replace_pie(node, puncher, pos)
-		end,
+		end
 	})
 
 	-- 1/2 pie
 	minetest.register_node("pie:" .. pie .. "_2", {
 		description = "Half " .. desc,
 		paramtype = "light",
+		use_texture_alpha = "clip",
 		sunlight_propagates = true,
 		tiles = {
 			pie .. "_top.png", pie .. "_bottom.png", pie .. "_side.png",
@@ -151,18 +154,19 @@ local register_pie = function(pie, desc)
 		drawtype = "nodebox",
 		node_box = {
 			type = "fixed",
-			fixed = {{-0.45, -0.5, 0.0, 0.45, 0, 0.45}},
+			fixed = {{-0.45, -0.5, 0.0, 0.45, 0, 0.45}}
 		},
 
 		on_punch = function(pos, node, puncher, pointed_thing)
 			replace_pie(node, puncher, pos)
-		end,
+		end
 	})
 
 	-- 1/4 pie
 	minetest.register_node("pie:" .. pie .. "_3", {
 		description = "Piece of " .. desc,
 		paramtype = "light",
+		use_texture_alpha = "clip",
 		sunlight_propagates = true,
 		tiles = {
 			pie .. "_top.png", pie .. "_bottom.png", pie .. "_side.png",
@@ -173,14 +177,13 @@ local register_pie = function(pie, desc)
 		drawtype = "nodebox",
 		node_box = {
 			type = "fixed",
-			fixed = {{-0.45, -0.5, 0.25, 0.45, 0, 0.45}},
+			fixed = {{-0.45, -0.5, 0.25, 0.45, 0, 0.45}}
 		},
 
 		on_punch = function(pos, node, puncher, pointed_thing)
 			replace_pie(node, puncher, pos)
-		end,
+		end
 	})
-
 end
 
 
@@ -192,7 +195,7 @@ minetest.register_craft({
 	recipe = {
 		{"group:food_sugar", "group:food_milk", "group:food_sugar"},
 		{"group:food_sugar", "group:food_egg", "group:food_sugar"},
-		{"group:food_wheat", "group:food_flour", "group:food_wheat"},
+		{"group:food_wheat", "group:food_flour", "group:food_wheat"}
 	},
 	replacements = {{ "mobs:bucket_milk", "bucket:bucket_empty"}}
 })
@@ -206,7 +209,7 @@ minetest.register_craft({
 	recipe = {
 		{"group:food_cocoa", "group:food_milk", "group:food_cocoa"},
 		{"group:food_sugar", "group:food_egg", "group:food_sugar"},
-		{"group:food_wheat", "group:food_flour", "group:food_wheat"},
+		{"group:food_wheat", "group:food_flour", "group:food_wheat"}
 	},
 	replacements = {{ "mobs:bucket_milk", "bucket:bucket_empty"}}
 })
@@ -220,7 +223,7 @@ minetest.register_craft({
 	recipe = {
 		{"group:food_strawberry", "group:food_milk", "group:food_strawberry"},
 		{"group:food_sugar", "group:food_egg", "group:food_sugar"},
-		{"group:food_wheat", "group:food_flour", "group:food_wheat"},
+		{"group:food_wheat", "group:food_flour", "group:food_wheat"}
 	},
 	replacements = {{ "mobs:bucket_milk", "bucket:bucket_empty"}}
 })
@@ -234,7 +237,7 @@ minetest.register_craft({
 	recipe = {
 		{"group:food_coffee", "group:food_milk", "group:food_coffee"},
 		{"group:food_sugar", "group:food_egg", "group:food_sugar"},
-		{"group:food_wheat", "group:food_flour", "group:food_wheat"},
+		{"group:food_wheat", "group:food_flour", "group:food_wheat"}
 	},
 	replacements = {{ "mobs:bucket_milk", "bucket:bucket_empty"}}
 })
@@ -248,7 +251,7 @@ minetest.register_craft({
 	recipe = {
 		{"group:food_cocoa", "group:food_milk", "dye:red"},
 		{"group:food_sugar", "group:food_egg", "group:food_sugar"},
-		{"group:food_flour", "group:food_cheese", "group:food_flour"},
+		{"group:food_flour", "group:food_cheese", "group:food_flour"}
 	},
 	replacements = {{ "mobs:bucket_milk", "bucket:bucket_empty"}}
 })
@@ -261,8 +264,8 @@ minetest.register_craft({
 	output = "pie:meat_0",
 	recipe = {
 		{"group:food_meat_raw", "group:food_egg", "group:food_meat_raw"},
-		{"group:food_wheat", "group:food_wheat", "group:food_wheat"},
-	},
+		{"group:food_wheat", "group:food_wheat", "group:food_wheat"}
+	}
 })
 
 
@@ -274,7 +277,7 @@ minetest.register_craft({
 	recipe = {
 		{"group:food_banana", "group:food_milk", "group:food_banana"},
 		{"group:food_sugar", "group:food_egg", "group:food_sugar"},
-		{"group:food_wheat", "group:food_flour", "group:food_wheat"},
+		{"group:food_wheat", "group:food_flour", "group:food_wheat"}
 	},
 	replacements = {{ "mobs:bucket_milk", "bucket:bucket_empty"}}
 })
@@ -288,7 +291,7 @@ minetest.register_craft({
 	recipe = {
 		{"group:food_bread", "group:food_milk", "group:food_bread"},
 		{"group:food_sugar", "group:food_egg", "group:food_sugar"},
-		{"group:food_wheat", "group:food_flour", "group:food_wheat"},
+		{"group:food_wheat", "group:food_flour", "group:food_wheat"}
 	},
 	replacements = {{ "mobs:bucket_milk", "bucket:bucket_empty"}}
 })
@@ -302,7 +305,7 @@ minetest.register_craft({
 	recipe = {
 		{"group:food_orange", "group:food_milk", "group:food_orange"},
 		{"group:food_sugar", "group:food_egg", "group:food_sugar"},
-		{"group:food_wheat", "group:food_flour", "group:food_wheat"},
+		{"group:food_wheat", "group:food_flour", "group:food_wheat"}
 	},
 	replacements = {{ "mobs:bucket_milk", "bucket:bucket_empty"}}
 })
@@ -322,7 +325,7 @@ lucky_block:add_blocks({
 	{"tro", "pie:orange_0", "default_place_node_hard", true},
 	{"nod", "pie:brpd_0", 0},
 	{"nod", "pie:meat_0", 0},
-	{"lig"},
+	{"lig"}
 })
 end
 
