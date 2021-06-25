@@ -4,8 +4,10 @@ local hmod = minetest.global_exists("hunger")
 local hbmod = minetest.global_exists("hbhunger")
 local stmod = minetest.global_exists("stamina")
 
+local screwdriver_exists = minetest.global_exists("screwdriver")
+
 -- eat pie slice function
-local replace_pie = function(node, puncher, pos)
+local function replace_pie(node, puncher, pos)
 
 	-- is this my pie?
 	if minetest.is_protected(pos, puncher:get_player_name()) then
@@ -41,7 +43,11 @@ local replace_pie = function(node, puncher, pos)
 		node.name = pie .. "_" .. (num + 1)
 	end
 
-	minetest.swap_node(pos, {name = node.name})
+	minetest.swap_node(pos, node)
+
+	if num == 3 then
+		minetest.check_for_falling(pos)
+	end
 
 	-- Blockmen's hud_hunger mod
 	if hmod then
@@ -91,12 +97,13 @@ end
 
 
 -- register pie bits
-local register_pie = function(pie, desc)
+local function register_pie(pie, desc)
 
 	-- full pie
 	minetest.register_node("pie:" .. pie .. "_0", {
 		description = desc,
 		paramtype = "light",
+		paramtype2 = "facedir",
 		use_texture_alpha = "clip",
 		sunlight_propagates = false,
 		tiles = {
@@ -108,8 +115,10 @@ local register_pie = function(pie, desc)
 		drawtype = "nodebox",
 		node_box = {
 			type = "fixed",
-			fixed = {{-0.45, -0.5, -0.45, 0.45, 0, 0.45}}
+			fixed = {-0.45, -0.5, -0.45, 0.45, 0, 0.45}
 		},
+
+		on_rotate = screwdriver_exists and screwdriver.rotate_simple,
 
 		on_punch = function(pos, node, puncher, pointed_thing)
 			replace_pie(node, puncher, pos)
@@ -118,8 +127,9 @@ local register_pie = function(pie, desc)
 
 	-- 3/4 pie
 	minetest.register_node("pie:" .. pie .. "_1", {
-		description = "3/4" .. desc,
+		description = "3/4 " .. desc,
 		paramtype = "light",
+		paramtype2 = "facedir",
 		use_texture_alpha = "clip",
 		sunlight_propagates = true,
 		tiles = {
@@ -131,8 +141,10 @@ local register_pie = function(pie, desc)
 		drawtype = "nodebox",
 		node_box = {
 			type = "fixed",
-			fixed = {{-0.45, -0.5, -0.25, 0.45, 0, 0.45}}
+			fixed = {-0.45, -0.5, -0.25, 0.45, 0, 0.45}
 		},
+
+		on_rotate = screwdriver_exists and screwdriver.rotate_simple,
 
 		on_punch = function(pos, node, puncher, pointed_thing)
 			replace_pie(node, puncher, pos)
@@ -143,6 +155,7 @@ local register_pie = function(pie, desc)
 	minetest.register_node("pie:" .. pie .. "_2", {
 		description = "Half " .. desc,
 		paramtype = "light",
+		paramtype2 = "facedir",
 		use_texture_alpha = "clip",
 		sunlight_propagates = true,
 		tiles = {
@@ -154,8 +167,10 @@ local register_pie = function(pie, desc)
 		drawtype = "nodebox",
 		node_box = {
 			type = "fixed",
-			fixed = {{-0.45, -0.5, 0.0, 0.45, 0, 0.45}}
+			fixed = {-0.45, -0.5, 0.0, 0.45, 0, 0.45}
 		},
+
+		on_rotate = screwdriver_exists and screwdriver.rotate_simple,
 
 		on_punch = function(pos, node, puncher, pointed_thing)
 			replace_pie(node, puncher, pos)
@@ -166,6 +181,7 @@ local register_pie = function(pie, desc)
 	minetest.register_node("pie:" .. pie .. "_3", {
 		description = "Piece of " .. desc,
 		paramtype = "light",
+		paramtype2 = "facedir",
 		use_texture_alpha = "clip",
 		sunlight_propagates = true,
 		tiles = {
@@ -177,8 +193,10 @@ local register_pie = function(pie, desc)
 		drawtype = "nodebox",
 		node_box = {
 			type = "fixed",
-			fixed = {{-0.45, -0.5, 0.25, 0.45, 0, 0.45}}
+			fixed = {-0.45, -0.5, 0.25, 0.45, 0, 0.45}
 		},
+
+		on_rotate = screwdriver_exists and screwdriver.rotate_simple,
 
 		on_punch = function(pos, node, puncher, pointed_thing)
 			replace_pie(node, puncher, pos)
@@ -197,7 +215,7 @@ minetest.register_craft({
 		{"group:food_sugar", "group:food_egg", "group:food_sugar"},
 		{"group:food_wheat", "group:food_flour", "group:food_wheat"}
 	},
-	replacements = {{ "mobs:bucket_milk", "bucket:bucket_empty"}}
+	replacements = {{"mobs:bucket_milk", "bucket:bucket_empty"}}
 })
 
 
@@ -211,7 +229,7 @@ minetest.register_craft({
 		{"group:food_sugar", "group:food_egg", "group:food_sugar"},
 		{"group:food_wheat", "group:food_flour", "group:food_wheat"}
 	},
-	replacements = {{ "mobs:bucket_milk", "bucket:bucket_empty"}}
+	replacements = {{"mobs:bucket_milk", "bucket:bucket_empty"}}
 })
 
 
@@ -225,7 +243,7 @@ minetest.register_craft({
 		{"group:food_sugar", "group:food_egg", "group:food_sugar"},
 		{"group:food_wheat", "group:food_flour", "group:food_wheat"}
 	},
-	replacements = {{ "mobs:bucket_milk", "bucket:bucket_empty"}}
+	replacements = {{"mobs:bucket_milk", "bucket:bucket_empty"}}
 })
 
 
@@ -239,7 +257,7 @@ minetest.register_craft({
 		{"group:food_sugar", "group:food_egg", "group:food_sugar"},
 		{"group:food_wheat", "group:food_flour", "group:food_wheat"}
 	},
-	replacements = {{ "mobs:bucket_milk", "bucket:bucket_empty"}}
+	replacements = {{"mobs:bucket_milk", "bucket:bucket_empty"}}
 })
 
 
@@ -253,7 +271,7 @@ minetest.register_craft({
 		{"group:food_sugar", "group:food_egg", "group:food_sugar"},
 		{"group:food_flour", "group:food_cheese", "group:food_flour"}
 	},
-	replacements = {{ "mobs:bucket_milk", "bucket:bucket_empty"}}
+	replacements = {{"mobs:bucket_milk", "bucket:bucket_empty"}}
 })
 
 
@@ -279,12 +297,12 @@ minetest.register_craft({
 		{"group:food_sugar", "group:food_egg", "group:food_sugar"},
 		{"group:food_wheat", "group:food_flour", "group:food_wheat"}
 	},
-	replacements = {{ "mobs:bucket_milk", "bucket:bucket_empty"}}
+	replacements = {{"mobs:bucket_milk", "bucket:bucket_empty"}}
 })
 
 
 -- bread pudding
-register_pie("brpd","Bread Pudding")
+register_pie("brpd", "Bread Pudding")
 
 minetest.register_craft({
 	output = "pie:brpd_0",
@@ -293,12 +311,12 @@ minetest.register_craft({
 		{"group:food_sugar", "group:food_egg", "group:food_sugar"},
 		{"group:food_wheat", "group:food_flour", "group:food_wheat"}
 	},
-	replacements = {{ "mobs:bucket_milk", "bucket:bucket_empty"}}
+	replacements = {{"mobs:bucket_milk", "bucket:bucket_empty"}}
 })
 
 
 -- orange pie
-register_pie("orange","Orange Pie")
+register_pie("orange", "Orange Pie")
 
 minetest.register_craft({
 	output = "pie:orange_0",
@@ -307,7 +325,7 @@ minetest.register_craft({
 		{"group:food_sugar", "group:food_egg", "group:food_sugar"},
 		{"group:food_wheat", "group:food_flour", "group:food_wheat"}
 	},
-	replacements = {{ "mobs:bucket_milk", "bucket:bucket_empty"}}
+	replacements = {{"mobs:bucket_milk", "bucket:bucket_empty"}}
 })
 
 
@@ -343,4 +361,4 @@ minetest.register_alias("pie:sugar", "farming:sugar")
 minetest.register_alias("pie:knife", "default:sword_steel")
 
 
-print ("[MOD] Pie loaded")
+print("[MOD] Pie loaded")
