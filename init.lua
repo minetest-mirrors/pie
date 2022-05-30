@@ -215,7 +215,10 @@ minetest.register_craft({
 		{"group:food_sugar", "group:food_egg", "group:food_sugar"},
 		{"group:food_wheat", "group:food_flour", "group:food_wheat"}
 	},
-	replacements = {{"mobs:bucket_milk", "bucket:bucket_empty"}}
+	replacements = {
+		{"mobs:bucket_milk", "bucket:bucket_empty"},
+		{"mobs:wooden_bucket_milk", "wooden_bucket:bucket_wood_empty"}
+	}
 })
 
 
@@ -229,7 +232,10 @@ minetest.register_craft({
 		{"group:food_sugar", "group:food_egg", "group:food_sugar"},
 		{"group:food_wheat", "group:food_flour", "group:food_wheat"}
 	},
-	replacements = {{"mobs:bucket_milk", "bucket:bucket_empty"}}
+	replacements = {
+		{"mobs:bucket_milk", "bucket:bucket_empty"},
+		{"mobs:wooden_bucket_milk", "wooden_bucket:bucket_wood_empty"}
+	}
 })
 
 
@@ -243,7 +249,10 @@ minetest.register_craft({
 		{"group:food_sugar", "group:food_egg", "group:food_sugar"},
 		{"group:food_wheat", "group:food_flour", "group:food_wheat"}
 	},
-	replacements = {{"mobs:bucket_milk", "bucket:bucket_empty"}}
+	replacements = {
+		{"mobs:bucket_milk", "bucket:bucket_empty"},
+		{"mobs:wooden_bucket_milk", "wooden_bucket:bucket_wood_empty"}
+	}
 })
 
 
@@ -257,7 +266,10 @@ minetest.register_craft({
 		{"group:food_sugar", "group:food_egg", "group:food_sugar"},
 		{"group:food_wheat", "group:food_flour", "group:food_wheat"}
 	},
-	replacements = {{"mobs:bucket_milk", "bucket:bucket_empty"}}
+	replacements = {
+		{"mobs:bucket_milk", "bucket:bucket_empty"},
+		{"mobs:wooden_bucket_milk", "wooden_bucket:bucket_wood_empty"}
+	}
 })
 
 
@@ -271,7 +283,10 @@ minetest.register_craft({
 		{"group:food_sugar", "group:food_egg", "group:food_sugar"},
 		{"group:food_flour", "group:food_cheese", "group:food_flour"}
 	},
-	replacements = {{"mobs:bucket_milk", "bucket:bucket_empty"}}
+	replacements = {
+		{"mobs:bucket_milk", "bucket:bucket_empty"},
+		{"mobs:wooden_bucket_milk", "wooden_bucket:bucket_wood_empty"}
+	}
 })
 
 
@@ -297,7 +312,10 @@ minetest.register_craft({
 		{"group:food_sugar", "group:food_egg", "group:food_sugar"},
 		{"group:food_wheat", "group:food_flour", "group:food_wheat"}
 	},
-	replacements = {{"mobs:bucket_milk", "bucket:bucket_empty"}}
+	replacements = {
+		{"mobs:bucket_milk", "bucket:bucket_empty"},
+		{"mobs:wooden_bucket_milk", "wooden_bucket:bucket_wood_empty"}
+	}
 })
 
 
@@ -311,7 +329,10 @@ minetest.register_craft({
 		{"group:food_sugar", "group:food_egg", "group:food_sugar"},
 		{"group:food_wheat", "group:food_flour", "group:food_wheat"}
 	},
-	replacements = {{"mobs:bucket_milk", "bucket:bucket_empty"}}
+	replacements = {
+		{"mobs:bucket_milk", "bucket:bucket_empty"},
+		{"mobs:wooden_bucket_milk", "wooden_bucket:bucket_wood_empty"}
+	}
 })
 
 
@@ -325,7 +346,10 @@ minetest.register_craft({
 		{"group:food_sugar", "group:food_egg", "group:food_sugar"},
 		{"group:food_wheat", "group:food_flour", "group:food_wheat"}
 	},
-	replacements = {{"mobs:bucket_milk", "bucket:bucket_empty"}}
+	replacements = {
+		{"mobs:bucket_milk", "bucket:bucket_empty"},
+		{"mobs:wooden_bucket_milk", "wooden_bucket:bucket_wood_empty"}
+	}
 })
 
 
