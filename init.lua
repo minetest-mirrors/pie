@@ -3,8 +3,8 @@
 local hmod = minetest.global_exists("hunger")
 local hbmod = minetest.global_exists("hbhunger")
 local stmod = minetest.global_exists("stamina")
-
 local screwdriver_exists = minetest.global_exists("screwdriver")
+
 
 -- eat pie slice function
 local function replace_pie(node, puncher, pos)
@@ -49,50 +49,49 @@ local function replace_pie(node, puncher, pos)
 		minetest.check_for_falling(pos)
 	end
 
+	-- default eat sound
+	local sound = "default_dig_crumbly"
+
 	-- Blockmen's hud_hunger mod
 	if hmod then
 
 		local h = hunger.read(puncher)
---		print ("hunger is "..h)
 
 		h = math.min(h + 4, 30)
 
 		local ok = hunger.update_hunger(puncher, h)
 
-		minetest.sound_play("hunger_eat", {
-			pos = pos, gain = 0.7, max_hear_distance = 5})
+		sound = "hunger_eat"
 
 	-- Wuzzy's hbhunger mod
 	elseif hbmod then
 
 		local h = tonumber(hbhunger.hunger[puncher:get_player_name()])
---		print ("hbhunger is "..h)
 
 		h = math.min(h + 4, 30)
 
 		hbhunger.hunger[puncher:get_player_name()] = h
 
-		minetest.sound_play("hbhunger_eat_generic", {
-			pos = pos, gain = 0.7, max_hear_distance = 5})
+		sound = "hbhunger_eat_generic"
 
 	-- Sofar's stamina mod
 	elseif stmod then
 
 		stamina.change(puncher, 4)
 
-		minetest.sound_play("stamina_eat", {
-			pos = pos, gain = 0.7, max_hear_distance = 5})
+		sound = "stamina_eat"
 
 	-- none of the above found? add to health instead
 	else
 
 		local h = puncher:get_hp()
---		print ("health is "..h)
 
 		h = math.min(h + 4, 20)
 
 		puncher:set_hp(h)
 	end
+
+	minetest.sound_play(sound, {pos = pos, gain = 0.7, max_hear_distance = 5}, true)
 end
 
 
@@ -117,6 +116,7 @@ local function register_pie(pie, desc)
 			type = "fixed",
 			fixed = {-0.45, -0.5, -0.45, 0.45, 0, 0.45}
 		},
+		sounds = default.node_sound_dirt_defaults(),
 
 		on_rotate = screwdriver_exists and screwdriver.rotate_simple,
 
@@ -143,6 +143,7 @@ local function register_pie(pie, desc)
 			type = "fixed",
 			fixed = {-0.45, -0.5, -0.25, 0.45, 0, 0.45}
 		},
+		sounds = default.node_sound_dirt_defaults(),
 
 		on_rotate = screwdriver_exists and screwdriver.rotate_simple,
 
@@ -169,6 +170,7 @@ local function register_pie(pie, desc)
 			type = "fixed",
 			fixed = {-0.45, -0.5, 0.0, 0.45, 0, 0.45}
 		},
+		sounds = default.node_sound_dirt_defaults(),
 
 		on_rotate = screwdriver_exists and screwdriver.rotate_simple,
 
@@ -195,6 +197,7 @@ local function register_pie(pie, desc)
 			type = "fixed",
 			fixed = {-0.45, -0.5, 0.25, 0.45, 0, 0.45}
 		},
+		sounds = default.node_sound_dirt_defaults(),
 
 		on_rotate = screwdriver_exists and screwdriver.rotate_simple,
 
@@ -355,20 +358,21 @@ minetest.register_craft({
 
 -- add lucky blocks
 if minetest.get_modpath("lucky_block") then
-lucky_block:add_blocks({
-	{"nod", "pie:pie_0", 0},
-	{"nod", "pie:choc_0", 0},
-	{"nod", "pie:coff_0", 0},
-	{"tro", "pie:pie_0"},
-	{"nod", "pie:rvel_0", 0},
-	{"nod", "pie:scsk_0", 0},
-	{"nod", "pie:bana_0", 0},
-	{"nod", "pie:orange_0", 0},
-	{"tro", "pie:orange_0", "default_place_node_hard", true},
-	{"nod", "pie:brpd_0", 0},
-	{"nod", "pie:meat_0", 0},
-	{"lig"}
-})
+
+	lucky_block:add_blocks({
+		{"nod", "pie:pie_0", 0},
+		{"nod", "pie:choc_0", 0},
+		{"nod", "pie:coff_0", 0},
+		{"tro", "pie:pie_0"},
+		{"nod", "pie:rvel_0", 0},
+		{"nod", "pie:scsk_0", 0},
+		{"nod", "pie:bana_0", 0},
+		{"nod", "pie:orange_0", 0},
+		{"tro", "pie:orange_0", "default_place_node_hard", true},
+		{"nod", "pie:brpd_0", 0},
+		{"nod", "pie:meat_0", 0},
+		{"lig"}
+	})
 end
 
 
