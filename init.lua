@@ -3,7 +3,16 @@
 local hmod = minetest.get_modpath("hunger")
 local hbmod = minetest.get_modpath("hbhunger")
 local stmod = minetest.get_modpath("stamina")
+local defmod = minetest.get_modpath("default")
+local mclhunger = minetest.get_modpath("mcl_hunger")
 local screwdriver_exists = minetest.get_modpath("screwdriver")
+
+-- sound support
+local cake_sound = defmod and default.node_sound_dirt_defaults()
+
+if minetest.get_modpath("mcl_sounds") then
+	cake_sound = mcl_sounds.node_sound_dirt_defaults()
+end
 
 
 -- eat pie slice function
@@ -81,6 +90,17 @@ local function replace_pie(node, puncher, pos)
 
 		sound = "stamina_eat"
 
+	-- mineclone2 mcl_hunger mod
+	elseif mclhunger then
+
+		local h = mcl_hunger.get_hunger(puncher)
+
+		h = math.min(h + 4, 20)
+
+		mcl_hunger.set_hunger(puncher, h)
+
+		sound = "mcl_hunger_bite"
+
 	-- none of the above found? add to health instead
 	else
 
@@ -116,7 +136,7 @@ local function register_pie(pie, desc)
 			type = "fixed",
 			fixed = {-0.45, -0.5, -0.45, 0.45, 0, 0.45}
 		},
-		sounds = default.node_sound_dirt_defaults(),
+		sounds = cake_sound,
 
 		on_rotate = screwdriver_exists and screwdriver.rotate_simple,
 
@@ -143,7 +163,7 @@ local function register_pie(pie, desc)
 			type = "fixed",
 			fixed = {-0.45, -0.5, -0.25, 0.45, 0, 0.45}
 		},
-		sounds = default.node_sound_dirt_defaults(),
+		sounds = cake_sound,
 
 		on_rotate = screwdriver_exists and screwdriver.rotate_simple,
 
@@ -170,7 +190,7 @@ local function register_pie(pie, desc)
 			type = "fixed",
 			fixed = {-0.45, -0.5, 0.0, 0.45, 0, 0.45}
 		},
-		sounds = default.node_sound_dirt_defaults(),
+		sounds = cake_sound,
 
 		on_rotate = screwdriver_exists and screwdriver.rotate_simple,
 
@@ -197,7 +217,7 @@ local function register_pie(pie, desc)
 			type = "fixed",
 			fixed = {-0.45, -0.5, 0.25, 0.45, 0, 0.45}
 		},
-		sounds = default.node_sound_dirt_defaults(),
+		sounds = cake_sound,
 
 		on_rotate = screwdriver_exists and screwdriver.rotate_simple,
 
@@ -207,6 +227,13 @@ local function register_pie(pie, desc)
 	})
 end
 
+
+-- replacement items
+local replace_these = {
+	{"mobs:bucket_milk", "bucket:bucket_empty"},
+	{"mobs:wooden_bucket_milk", "wooden_bucket:bucket_wood_empty"},
+	{"mcl_mobitems:milk_bucket", "mcl_buckets:bucket_empty"}
+}
 
 -- normal cake
 register_pie("pie", "Cake")
@@ -218,10 +245,7 @@ minetest.register_craft({
 		{"group:food_sugar", "group:food_egg", "group:food_sugar"},
 		{"group:food_wheat", "group:food_flour", "group:food_wheat"}
 	},
-	replacements = {
-		{"mobs:bucket_milk", "bucket:bucket_empty"},
-		{"mobs:wooden_bucket_milk", "wooden_bucket:bucket_wood_empty"}
-	}
+	replacements = replace_these
 })
 
 
@@ -235,10 +259,7 @@ minetest.register_craft({
 		{"group:food_sugar", "group:food_egg", "group:food_sugar"},
 		{"group:food_wheat", "group:food_flour", "group:food_wheat"}
 	},
-	replacements = {
-		{"mobs:bucket_milk", "bucket:bucket_empty"},
-		{"mobs:wooden_bucket_milk", "wooden_bucket:bucket_wood_empty"}
-	}
+	replacements = replace_these
 })
 
 
@@ -252,10 +273,7 @@ minetest.register_craft({
 		{"group:food_sugar", "group:food_egg", "group:food_sugar"},
 		{"group:food_wheat", "group:food_flour", "group:food_wheat"}
 	},
-	replacements = {
-		{"mobs:bucket_milk", "bucket:bucket_empty"},
-		{"mobs:wooden_bucket_milk", "wooden_bucket:bucket_wood_empty"}
-	}
+	replacements = replace_these
 })
 
 
@@ -269,10 +287,7 @@ minetest.register_craft({
 		{"group:food_sugar", "group:food_egg", "group:food_sugar"},
 		{"group:food_wheat", "group:food_flour", "group:food_wheat"}
 	},
-	replacements = {
-		{"mobs:bucket_milk", "bucket:bucket_empty"},
-		{"mobs:wooden_bucket_milk", "wooden_bucket:bucket_wood_empty"}
-	}
+	replacements = replace_these
 })
 
 
@@ -286,10 +301,7 @@ minetest.register_craft({
 		{"group:food_sugar", "group:food_egg", "group:food_sugar"},
 		{"group:food_flour", "group:food_cheese", "group:food_flour"}
 	},
-	replacements = {
-		{"mobs:bucket_milk", "bucket:bucket_empty"},
-		{"mobs:wooden_bucket_milk", "wooden_bucket:bucket_wood_empty"}
-	}
+	replacements = replace_these
 })
 
 
@@ -315,10 +327,7 @@ minetest.register_craft({
 		{"group:food_sugar", "group:food_egg", "group:food_sugar"},
 		{"group:food_wheat", "group:food_flour", "group:food_wheat"}
 	},
-	replacements = {
-		{"mobs:bucket_milk", "bucket:bucket_empty"},
-		{"mobs:wooden_bucket_milk", "wooden_bucket:bucket_wood_empty"}
-	}
+	replacements = replace_these
 })
 
 
@@ -332,10 +341,7 @@ minetest.register_craft({
 		{"group:food_sugar", "group:food_egg", "group:food_sugar"},
 		{"group:food_wheat", "group:food_flour", "group:food_wheat"}
 	},
-	replacements = {
-		{"mobs:bucket_milk", "bucket:bucket_empty"},
-		{"mobs:wooden_bucket_milk", "wooden_bucket:bucket_wood_empty"}
-	}
+	replacements = replace_these
 })
 
 
@@ -349,10 +355,7 @@ minetest.register_craft({
 		{"group:food_sugar", "group:food_egg", "group:food_sugar"},
 		{"group:food_wheat", "group:food_flour", "group:food_wheat"}
 	},
-	replacements = {
-		{"mobs:bucket_milk", "bucket:bucket_empty"},
-		{"mobs:wooden_bucket_milk", "wooden_bucket:bucket_wood_empty"}
-	}
+	replacements = replace_these
 })
 
 
