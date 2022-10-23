@@ -228,6 +228,18 @@ local function register_pie(pie, desc)
 end
 
 
+-- register cakes
+register_pie("pie", "Cake")
+register_pie("choc", "Chocolate Cake")
+register_pie("scsk", "Strawberry Cheesecake")
+register_pie("coff", "Coffee Cake")
+register_pie("rvel", "Red Velvet Cake")
+register_pie("meat", "Meat Cake")
+register_pie("bana", "Banana Cake")
+register_pie("brpd", "Bread Pudding")
+register_pie("orange", "Orange Pie")
+
+
 -- replacement items
 local replace_these = {
 	{"mobs:bucket_milk", "bucket:bucket_empty"},
@@ -235,125 +247,116 @@ local replace_these = {
 	{"mcl_mobitems:milk_bucket", "mcl_buckets:bucket_empty"}
 }
 
--- normal cake
-register_pie("pie", "Cake")
+-- ingredient variables
+local mcl = minetest.get_modpath("mcl_dye")
+local i_sugar = mcl and "mcl_core:sugar" or "group:food_sugar"
+local i_wheat = mcl and "mcl_farming:wheat_item" or "group:food_wheat"
+local i_flour = mcl and "mcl_farming:bread" or "group:food_flour"
+local i_egg = mcl and "mcl_throwing:egg" or "group:food_egg"
+local i_milk = mcl and "mcl_mobitems:milk_bucket" or "group:food_milk"
+local i_cocoa = mcl and "mcl_dye:brown" or "group:food_cocoa"
+local i_strawberry = mcl and "mcl_dye:red" or "group:food_strawberry"
+local i_coffee = mcl and "mcl_dye:black" or "group:food_coffee"
+local i_cheese = mcl and "mcl_dye:yellow" or "group:food_cheese"
+local i_red = mcl and "mcl_dye:red" or "dye:red"
+local i_meat = mcl and "mcl_mobitems:beef" or "group:food_meat_raw"
+local i_banana = mcl and "mcl_dye:yellow" or "group:food_banana"
+local i_bread = mcl and "mcl_farming:bread" or "group:food_bread"
+local i_orange = mcl and "mcl_dye:orange" or "group:food_orange"
 
+-- normal cake recipe
 minetest.register_craft({
 	output = "pie:pie_0",
 	recipe = {
-		{"group:food_sugar", "group:food_milk", "group:food_sugar"},
-		{"group:food_sugar", "group:food_egg", "group:food_sugar"},
-		{"group:food_wheat", "group:food_flour", "group:food_wheat"}
+		{i_sugar, i_milk, i_sugar},
+		{i_sugar, i_egg, i_sugar},
+		{i_wheat, i_flour, i_wheat}
 	},
 	replacements = replace_these
 })
 
-
--- chocolate cake
-register_pie("choc", "Chocolate Cake")
-
+-- chocolate cake recipe
 minetest.register_craft({
 	output = "pie:choc_0",
 	recipe = {
-		{"group:food_cocoa", "group:food_milk", "group:food_cocoa"},
-		{"group:food_sugar", "group:food_egg", "group:food_sugar"},
-		{"group:food_wheat", "group:food_flour", "group:food_wheat"}
+		{i_cocoa, i_milk, i_cocoa},
+		{i_sugar, i_egg, i_sugar},
+		{i_wheat, i_flour, i_wheat}
 	},
 	replacements = replace_these
 })
 
-
--- strawberry cheesecake
-register_pie("scsk", "Strawberry Cheesecake")
-
+-- strawberry cheesecake recipe
 minetest.register_craft({
 	output = "pie:scsk_0",
 	recipe = {
-		{"group:food_strawberry", "group:food_milk", "group:food_strawberry"},
-		{"group:food_sugar", "group:food_egg", "group:food_sugar"},
-		{"group:food_wheat", "group:food_flour", "group:food_wheat"}
+		{i_strawberry, i_milk, i_strawberry},
+		{i_sugar, i_egg, i_sugar},
+		{i_wheat, i_flour, i_wheat}
 	},
 	replacements = replace_these
 })
 
-
--- coffee cake
-register_pie("coff", "Coffee Cake")
-
+-- coffee cake recipe
 minetest.register_craft({
 	output = "pie:coff_0",
 	recipe = {
-		{"group:food_coffee", "group:food_milk", "group:food_coffee"},
-		{"group:food_sugar", "group:food_egg", "group:food_sugar"},
-		{"group:food_wheat", "group:food_flour", "group:food_wheat"}
+		{i_coffee, i_milk, i_coffee},
+		{i_sugar, i_egg, i_sugar},
+		{i_wheat, i_flour, i_wheat}
 	},
 	replacements = replace_these
 })
 
-
--- red velvet cake
-register_pie("rvel", "Red Velvet Cake")
-
+-- red velvet cake recipe
 minetest.register_craft({
 	output = "pie:rvel_0",
 	recipe = {
-		{"group:food_cocoa", "group:food_milk", "dye:red"},
-		{"group:food_sugar", "group:food_egg", "group:food_sugar"},
-		{"group:food_flour", "group:food_cheese", "group:food_flour"}
+		{i_cocoa, i_milk, i_red},
+		{i_sugar, i_egg, i_sugar},
+		{i_flour, i_cheese, i_flour}
 	},
 	replacements = replace_these
 })
 
-
--- meat cake
-register_pie("meat", "Meat Cake")
-
+-- meat cake recipe
 minetest.register_craft({
 	output = "pie:meat_0",
 	recipe = {
-		{"group:food_meat_raw", "group:food_egg", "group:food_meat_raw"},
-		{"group:food_wheat", "group:food_wheat", "group:food_wheat"}
+		{i_meat, i_egg, i_meat},
+		{i_wheat, i_wheat, i_wheat}
 	}
 })
 
-
--- banana cake
-register_pie("bana", "Banana Cake")
-
+-- banana cake recipe
 minetest.register_craft({
 	output = "pie:bana_0",
 	recipe = {
-		{"group:food_banana", "group:food_milk", "group:food_banana"},
-		{"group:food_sugar", "group:food_egg", "group:food_sugar"},
-		{"group:food_wheat", "group:food_flour", "group:food_wheat"}
+		{i_banana, i_milk, i_banana},
+		{i_sugar, i_egg, i_sugar},
+		{i_wheat, i_flour, i_wheat}
 	},
 	replacements = replace_these
 })
 
-
--- bread pudding
-register_pie("brpd", "Bread Pudding")
-
+-- bread pudding recipe
 minetest.register_craft({
 	output = "pie:brpd_0",
 	recipe = {
-		{"group:food_bread", "group:food_milk", "group:food_bread"},
-		{"group:food_sugar", "group:food_egg", "group:food_sugar"},
-		{"group:food_wheat", "group:food_flour", "group:food_wheat"}
+		{i_bread, i_milk, i_bread},
+		{i_sugar, i_egg, i_sugar},
+		{i_wheat, i_flour, i_wheat}
 	},
 	replacements = replace_these
 })
 
-
 -- orange pie
-register_pie("orange", "Orange Pie")
-
 minetest.register_craft({
 	output = "pie:orange_0",
 	recipe = {
-		{"group:food_orange", "group:food_milk", "group:food_orange"},
-		{"group:food_sugar", "group:food_egg", "group:food_sugar"},
-		{"group:food_wheat", "group:food_flour", "group:food_wheat"}
+		{i_orange, i_milk, i_orange},
+		{i_sugar, i_egg, i_sugar},
+		{i_wheat, i_flour, i_wheat}
 	},
 	replacements = replace_these
 })
