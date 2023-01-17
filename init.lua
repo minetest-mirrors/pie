@@ -2,7 +2,7 @@
 -- check for available hunger mods
 local hmod = minetest.get_modpath("hunger")
 local hbmod = minetest.get_modpath("hbhunger")
-local stmod = minetest.get_modpath("stamina")
+local stmod = minetest.global_exists("stamina")
 local defmod = minetest.get_modpath("default")
 local mclhunger = minetest.get_modpath("mcl_hunger")
 local screwdriver_exists = minetest.get_modpath("screwdriver")
