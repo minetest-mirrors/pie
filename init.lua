@@ -1,3 +1,4 @@
+pie = {}
 
 -- check for available hunger mods
 local hmod = minetest.get_modpath("hunger")
@@ -116,7 +117,7 @@ end
 
 
 -- register pie bits
-local function register_pie(pie, desc)
+pie.register_pie = function(pie, desc)
 
 	-- full pie
 	minetest.register_node("pie:" .. pie .. "_0", {
@@ -229,22 +230,24 @@ end
 
 
 -- register cakes
-register_pie("pie", "Cake")
-register_pie("choc", "Chocolate Cake")
-register_pie("scsk", "Strawberry Cheesecake")
-register_pie("coff", "Coffee Cake")
-register_pie("rvel", "Red Velvet Cake")
-register_pie("meat", "Meat Cake")
-register_pie("bana", "Banana Cake")
-register_pie("brpd", "Bread Pudding")
-register_pie("orange", "Orange Pie")
+pie.register_pie("pie", "Cake")
+pie.register_pie("choc", "Chocolate Cake")
+pie.register_pie("scsk", "Strawberry Cheesecake")
+pie.register_pie("coff", "Coffee Cake")
+pie.register_pie("rvel", "Red Velvet Cake")
+pie.register_pie("meat", "Meat Cake")
+pie.register_pie("bana", "Banana Cake")
+pie.register_pie("brpd", "Bread Pudding")
+pie.register_pie("orange", "Orange Pie")
 
 
 -- replacement items
 local replace_these = {
 	{"mobs:bucket_milk", "bucket:bucket_empty"},
 	{"mobs:wooden_bucket_milk", "wooden_bucket:bucket_wood_empty"},
-	{"mcl_mobitems:milk_bucket", "mcl_buckets:bucket_empty"}
+	{"mcl_mobitems:milk_bucket", "mcl_buckets:bucket_empty"},
+	{"petz:bucket_milk", "bucket:empty"},
+	{"cucina_vegana:soy_milk", "vessels:glass_bottle"}
 }
 
 -- ingredient variables
