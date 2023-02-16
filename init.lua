@@ -25,8 +25,8 @@ local function replace_pie(node, puncher, pos)
 	end
 
 	-- which size of pie did we hit?
-	local pie = node.name:split("_")[1]
-	local num = tonumber(node.name:split("_")[2])
+	local pie = node.name:sub(1,-3)
+	local num = tonumber(node.name:sub(-1))
 
 	-- are we using crystal shovel to pick up full pie using soft touch?
 	local tool = puncher:get_wielded_item():get_name()
@@ -120,7 +120,7 @@ end
 pie.register_pie = function(pie, desc)
 
 	-- full pie
-	minetest.register_node("pie:" .. pie .. "_0", {
+	minetest.register_node(":pie:" .. pie .. "_0", {
 		description = desc,
 		paramtype = "light",
 		paramtype2 = "facedir",
@@ -147,7 +147,7 @@ pie.register_pie = function(pie, desc)
 	})
 
 	-- 3/4 pie
-	minetest.register_node("pie:" .. pie .. "_1", {
+	minetest.register_node(":pie:" .. pie .. "_1", {
 		description = "3/4 " .. desc,
 		paramtype = "light",
 		paramtype2 = "facedir",
@@ -174,7 +174,7 @@ pie.register_pie = function(pie, desc)
 	})
 
 	-- 1/2 pie
-	minetest.register_node("pie:" .. pie .. "_2", {
+	minetest.register_node(":pie:" .. pie .. "_2", {
 		description = "Half " .. desc,
 		paramtype = "light",
 		paramtype2 = "facedir",
@@ -201,7 +201,7 @@ pie.register_pie = function(pie, desc)
 	})
 
 	-- 1/4 pie
-	minetest.register_node("pie:" .. pie .. "_3", {
+	minetest.register_node(":pie:" .. pie .. "_3", {
 		description = "Piece of " .. desc,
 		paramtype = "light",
 		paramtype2 = "facedir",
