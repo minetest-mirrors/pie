@@ -246,7 +246,7 @@ local replace_these = {
 	{"mobs:bucket_milk", "bucket:bucket_empty"},
 	{"mobs:wooden_bucket_milk", "wooden_bucket:bucket_wood_empty"},
 	{"mcl_mobitems:milk_bucket", "mcl_buckets:bucket_empty"},
-	{"petz:bucket_milk", "bucket:empty"},
+	{"petz:bucket_milk", "bucket:bucket_empty"},
 	{"cucina_vegana:soy_milk", "vessels:glass_bottle"}
 }
 
