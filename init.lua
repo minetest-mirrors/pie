@@ -241,15 +241,6 @@ pie.register_pie("brpd", "Bread Pudding")
 pie.register_pie("orange", "Orange Pie")
 
 
--- replacement items
-local replace_these = {
-	{"mobs:bucket_milk", "bucket:bucket_empty"},
-	{"mobs:wooden_bucket_milk", "wooden_bucket:bucket_wood_empty"},
-	{"mcl_mobitems:milk_bucket", "mcl_buckets:bucket_empty"},
-	{"petz:bucket_milk", "bucket:bucket_empty"},
-	{"cucina_vegana:soy_milk", "vessels:glass_bottle"}
-}
-
 -- ingredient variables
 local mcl = minetest.get_modpath("mcl_dye")
 local i_sugar = mcl and "mcl_core:sugar" or "group:food_sugar"
@@ -266,6 +257,17 @@ local i_meat = mcl and "mcl_mobitems:beef" or "group:food_meat_raw"
 local i_banana = mcl and "mcl_dye:yellow" or "group:food_banana"
 local i_bread = mcl and "mcl_farming:bread" or "group:food_bread"
 local i_orange = mcl and "mcl_dye:orange" or "group:food_orange"
+local i_bucket = mcl and "mcl_buckets:bucket_empty" or "bucket:bucket_empty"
+local i_bottle = mcl and "mcl_potions:glass_bottle" or "vessels:glass_bottle"
+
+-- replacement items
+local replace_these = {
+	{"mobs:bucket_milk", i_bucket},
+	{"mobs:wooden_bucket_milk", "wooden_bucket:bucket_wood_empty"},
+	{"mcl_mobitems:milk_bucket", i_bucket},
+	{"petz:bucket_milk", i_bucket},
+	{"cucina_vegana:soy_milk", i_bottle}
+}
 
 -- normal cake recipe
 minetest.register_craft({
