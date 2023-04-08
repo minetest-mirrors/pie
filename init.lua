@@ -7,6 +7,7 @@ local stmod = minetest.global_exists("stamina")
 local defmod = minetest.get_modpath("default")
 local mclhunger = minetest.get_modpath("mcl_hunger")
 local screwdriver_exists = minetest.get_modpath("screwdriver")
+local quarters = minetest.settings:get_bool("pie.quarters")
 
 -- sound support
 local cake_sound = defmod and default.node_sound_dirt_defaults()
@@ -119,6 +120,11 @@ end
 -- register pie bits
 pie.register_pie = function(pie, desc)
 
+	local nodebox = {
+		type = "fixed",
+		fixed = {-0.45, -0.5, -0.45, 0.45, 0, 0.45}
+	}
+
 	-- full pie
 	minetest.register_node(":pie:" .. pie .. "_0", {
 		description = desc,
@@ -133,10 +139,7 @@ pie.register_pie = function(pie, desc)
 		inventory_image = pie .. "_inv.png",
 		wield_image = pie .. "_inv.png",
 		drawtype = "nodebox",
-		node_box = {
-			type = "fixed",
-			fixed = {-0.45, -0.5, -0.45, 0.45, 0, 0.45}
-		},
+		node_box = nodebox,
 		sounds = cake_sound,
 
 		on_rotate = screwdriver_exists and screwdriver.rotate_simple,
@@ -145,6 +148,21 @@ pie.register_pie = function(pie, desc)
 			replace_pie(node, puncher, pos)
 		end
 	})
+
+	if quarters then
+		nodebox = {
+			type = "fixed",
+			fixed = {
+				{-0.45, -0.5, -0.45, 0, 0, 0.45},
+				{-0.45, -0.5, 0, 0.45, 0, 0.45}
+			}
+		}
+	else
+		nodebox = {
+			type = "fixed",
+			fixed = {-0.45, -0.5, -0.25, 0.45, 0, 0.45}
+		}
+	end
 
 	-- 3/4 pie
 	minetest.register_node(":pie:" .. pie .. "_1", {
@@ -160,10 +178,7 @@ pie.register_pie = function(pie, desc)
 		groups = {not_in_creative_inventory = 1},
 		drop = {},
 		drawtype = "nodebox",
-		node_box = {
-			type = "fixed",
-			fixed = {-0.45, -0.5, -0.25, 0.45, 0, 0.45}
-		},
+		node_box = nodebox,
 		sounds = cake_sound,
 
 		on_rotate = screwdriver_exists and screwdriver.rotate_simple,
@@ -172,6 +187,18 @@ pie.register_pie = function(pie, desc)
 			replace_pie(node, puncher, pos)
 		end
 	})
+
+	if quarters then
+		nodebox = {
+			type = "fixed",
+			fixed = {-0.45, -0.5, -.45, 0, 0, 0.45}
+		}
+	else
+		nodebox = {
+			type = "fixed",
+			fixed = {-0.45, -0.5, 0.0, 0.45, 0, 0.45}
+		}
+	end
 
 	-- 1/2 pie
 	minetest.register_node(":pie:" .. pie .. "_2", {
@@ -187,10 +214,7 @@ pie.register_pie = function(pie, desc)
 		groups = {not_in_creative_inventory = 1},
 		drop = {},
 		drawtype = "nodebox",
-		node_box = {
-			type = "fixed",
-			fixed = {-0.45, -0.5, 0.0, 0.45, 0, 0.45}
-		},
+		node_box = nodebox,
 		sounds = cake_sound,
 
 		on_rotate = screwdriver_exists and screwdriver.rotate_simple,
@@ -199,6 +223,18 @@ pie.register_pie = function(pie, desc)
 			replace_pie(node, puncher, pos)
 		end
 	})
+
+	if quarters then
+		nodebox = {
+			type = "fixed",
+			fixed = {-0.45, -0.5, 0.0, 0.0, 0, 0.45}
+		}
+	else
+		nodebox = {
+			type = "fixed",
+			fixed = {-0.45, -0.5, 0.25, 0.45, 0, 0.45}
+		}
+	end
 
 	-- 1/4 pie
 	minetest.register_node(":pie:" .. pie .. "_3", {
@@ -214,10 +250,7 @@ pie.register_pie = function(pie, desc)
 		groups = {not_in_creative_inventory = 1},
 		drop = {},
 		drawtype = "nodebox",
-		node_box = {
-			type = "fixed",
-			fixed = {-0.45, -0.5, 0.25, 0.45, 0, 0.45}
-		},
+		node_box = nodebox,
 		sounds = cake_sound,
 
 		on_rotate = screwdriver_exists and screwdriver.rotate_simple,
