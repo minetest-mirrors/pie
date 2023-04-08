@@ -120,22 +120,24 @@ end
 -- register pie bits
 pie.register_pie = function(pie, desc)
 
+	-- full pie
+
 	local nodebox = {
 		type = "fixed",
 		fixed = {-0.45, -0.5, -0.45, 0.45, 0, 0.45}
 	}
+	local tiles = {
+		pie .. "_top.png", pie .. "_bottom.png", pie .. "_side.png",
+		pie .. "_side.png", pie .. "_side.png", pie .. "_side.png"
+	}
 
-	-- full pie
 	minetest.register_node(":pie:" .. pie .. "_0", {
 		description = desc,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		use_texture_alpha = "clip",
 		sunlight_propagates = false,
-		tiles = {
-			pie .. "_top.png", pie .. "_bottom.png", pie .. "_side.png",
-			pie .. "_side.png", pie .. "_side.png", pie .. "_side.png"
-		},
+		tiles = tiles,
 		inventory_image = pie .. "_inv.png",
 		wield_image = pie .. "_inv.png",
 		drawtype = "nodebox",
@@ -149,32 +151,35 @@ pie.register_pie = function(pie, desc)
 		end
 	})
 
+	-- 3/4 pie
+
+	nodebox = {
+		type = "fixed",
+		fixed = {-0.45, -0.5, -0.25, 0.45, 0, 0.45}
+	}
+	tiles = {
+		pie .. "_top.png", pie .. "_bottom.png", pie .. "_side.png",
+		pie .. "_side.png", pie .. "_side.png", pie .. "_inside.png"
+	}
+
 	if quarters then
-		nodebox = {
-			type = "fixed",
-			fixed = {
-				{-0.45, -0.5, -0.45, 0, 0, 0.45},
-				{-0.45, -0.5, 0, 0.45, 0, 0.45}
-			}
+		nodebox.fixed = {
+			{-0.45, -0.5, -0.45, 0, 0, 0.45},
+			{-0.45, -0.5, 0, 0.45, 0, 0.45}
 		}
-	else
-		nodebox = {
-			type = "fixed",
-			fixed = {-0.45, -0.5, -0.25, 0.45, 0, 0.45}
+		tiles = {
+			pie .. "_top.png", pie .. "_bottom.png", pie .. "_side_inside.png^[transformFX",
+			pie .. "_side.png", pie .. "_side.png", pie .. "_side_inside.png"
 		}
 	end
 
-	-- 3/4 pie
 	minetest.register_node(":pie:" .. pie .. "_1", {
 		description = "3/4 " .. desc,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		use_texture_alpha = "clip",
 		sunlight_propagates = true,
-		tiles = {
-			pie .. "_top.png", pie .. "_bottom.png", pie .. "_side.png",
-			pie .. "_side.png", pie .. "_side.png", pie .. "_inside.png"
-		},
+		tiles = tiles,
 		groups = {not_in_creative_inventory = 1},
 		drop = {},
 		drawtype = "nodebox",
@@ -188,29 +193,32 @@ pie.register_pie = function(pie, desc)
 		end
 	})
 
+	-- 1/2 pie
+
+	nodebox = {
+		type = "fixed",
+		fixed = {-0.45, -0.5, 0.0, 0.45, 0, 0.45}
+	}
+	tiles = {
+		pie .. "_top.png", pie .. "_bottom.png", pie .. "_side.png",
+		pie .. "_side.png", pie .. "_side.png", pie .. "_inside.png"
+	}
+
 	if quarters then
-		nodebox = {
-			type = "fixed",
-			fixed = {-0.45, -0.5, -.45, 0, 0, 0.45}
-		}
-	else
-		nodebox = {
-			type = "fixed",
-			fixed = {-0.45, -0.5, 0.0, 0.45, 0, 0.45}
+		nodebox.fixed = {-0.45, -0.5, -.45, 0, 0, 0.45}
+		tiles = {
+			pie .. "_top.png", pie .. "_bottom.png", pie .. "_inside.png",
+			pie .. "_side.png", pie .. "_side.png", pie .. "_side.png"
 		}
 	end
 
-	-- 1/2 pie
 	minetest.register_node(":pie:" .. pie .. "_2", {
 		description = "Half " .. desc,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		use_texture_alpha = "clip",
 		sunlight_propagates = true,
-		tiles = {
-			pie .. "_top.png", pie .. "_bottom.png", pie .. "_side.png",
-			pie .. "_side.png", pie .. "_side.png", pie .. "_inside.png"
-		},
+		tiles = tiles,
 		groups = {not_in_creative_inventory = 1},
 		drop = {},
 		drawtype = "nodebox",
@@ -224,29 +232,32 @@ pie.register_pie = function(pie, desc)
 		end
 	})
 
+	-- 1/4 pie
+
+	tiles = {
+		pie .. "_top.png", pie .. "_bottom.png", pie .. "_side.png",
+		pie .. "_side.png", pie .. "_side.png", pie .. "_inside.png"
+	}
+	nodebox = {
+		type = "fixed",
+		fixed = {-0.45, -0.5, 0.25, 0.45, 0, 0.45}
+	}
+
 	if quarters then
-		nodebox = {
-			type = "fixed",
-			fixed = {-0.45, -0.5, 0.0, 0.0, 0, 0.45}
-		}
-	else
-		nodebox = {
-			type = "fixed",
-			fixed = {-0.45, -0.5, 0.25, 0.45, 0, 0.45}
+		nodebox.fixed = {-0.45, -0.5, 0.0, 0.0, 0, 0.45}
+		tiles = {
+			pie .. "_top.png", pie .. "_bottom.png", pie .. "_inside.png",
+			pie .. "_side.png", pie .. "_side.png", pie .. "_inside.png"
 		}
 	end
 
-	-- 1/4 pie
 	minetest.register_node(":pie:" .. pie .. "_3", {
 		description = "Piece of " .. desc,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		use_texture_alpha = "clip",
 		sunlight_propagates = true,
-		tiles = {
-			pie .. "_top.png", pie .. "_bottom.png", pie .. "_side.png",
-			pie .. "_side.png", pie .. "_side.png", pie .. "_inside.png"
-		},
+		tiles = tiles,
 		groups = {not_in_creative_inventory = 1},
 		drop = {},
 		drawtype = "nodebox",
