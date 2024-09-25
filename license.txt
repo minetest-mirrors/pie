@@ -24,17 +24,16 @@ THE SOFTWARE.
 Textures licensed under CC-BY-SA 3.0
 http://creativecommons.org/licenses/by-sa/3.0/
 
-Poikilos
-  pie_inv.png
+Textures from https://harvestcraftmod.fandom.com/wiki/Cherry_Cheese_Cake (CC BY-SA):
+  scsk_*.png
 
-TenPlus1
+TenPlus1 (CC0):
   pie_*.png (if not mentioned above)
   choc_*.png
   bana_*.png
   coff_*.png
   meat_*.png
   rvel_*.png
-  scsk_*.png
 
 CalebDavis
   brpd_*.png
