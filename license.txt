@@ -21,12 +21,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-Textures licensed under CC-BY-SA 3.0
-http://creativecommons.org/licenses/by-sa/3.0/
-
-Textures from https://harvestcraftmod.fandom.com/wiki/Cherry_Cheese_Cake (CC BY-SA):
-  scsk_*.png
-
 TenPlus1 (CC0):
   pie_*.png (if not mentioned above)
   choc_*.png
@@ -34,10 +28,11 @@ TenPlus1 (CC0):
   coff_*.png
   meat_*.png
   rvel_*.png
+..scsk_*.png
 
-CalebDavis
+CalebDavis (CC0):
   brpd_*.png
   orange_*.png
 
-Edited by Slightly
+Edited by Slightly (CC0):
   *_side_inside.png
