@@ -294,7 +294,7 @@ local i_bread = mcl and "mcl_farming:bread" or "group:food_bread"
 local i_orange = mcl and "mcl_dye:orange" or "group:food_orange"
 local i_bucket = mcl and "mcl_buckets:bucket_empty" or "bucket:bucket_empty"
 local i_bottle = mcl and "mcl_potions:glass_bottle" or "vessels:glass_bottle"
-local i_glass = mcl and "mcl_potions:glass_bottle" or "vessels:drinking"
+local i_glass = mcl and "mcl_potions:glass_bottle" or "vessels:drinking_glass"
 
 -- replacement items
 
