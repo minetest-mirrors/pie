@@ -65,8 +65,7 @@ local function replace_pie(node, puncher, pos)
 	-- default eat sound
 	local sound = "default_dig_crumbly"
 
-	-- Blockmen's hud_hunger mod
-	if hmod then
+	if hmod then -- Blockmen's hud_hunger mod
 
 		local h = hunger.read(puncher)
 
@@ -76,8 +75,7 @@ local function replace_pie(node, puncher, pos)
 
 		sound = "hunger_eat"
 
-	-- Wuzzy's hbhunger mod
-	elseif hbmod then
+	elseif hbmod then -- Wuzzy's hbhunger mod
 
 		local h = tonumber(hbhunger.hunger[puncher:get_player_name()])
 
@@ -87,15 +85,13 @@ local function replace_pie(node, puncher, pos)
 
 		sound = "hbhunger_eat_generic"
 
-	-- Sofar's stamina mod
-	elseif stmod then
+	elseif stmod then -- Sofar's stamina mod
 
 		stamina.change(puncher, 4)
 
 		sound = "stamina_eat"
 
-	-- mineclone2 mcl_hunger mod
-	elseif mclhunger then
+	elseif mclhunger then -- mineclone2 mcl_hunger mod
 
 		local h = mcl_hunger.get_hunger(puncher)
 
@@ -105,8 +101,7 @@ local function replace_pie(node, puncher, pos)
 
 		sound = "mcl_hunger_bite"
 
-	-- none of the above found? add to health instead
-	else
+	else -- none of the above found? add to health instead
 
 		local h = puncher:get_hp()
 
@@ -125,8 +120,7 @@ pie.register_pie = function(pie, desc)
 	-- full pie
 
 	local nodebox = {
-		type = "fixed",
-		fixed = {-0.45, -0.5, -0.45, 0.45, 0, 0.45}}
+		type = "fixed", fixed = {-0.45, -0.5, -0.45, 0.45, 0, 0.45}}
 
 	local tiles = {
 		pie .. "_top.png", pie .. "_bottom.png", pie .. "_side.png",
@@ -155,8 +149,7 @@ pie.register_pie = function(pie, desc)
 	-- 3/4 pie
 
 	nodebox = {
-		type = "fixed",
-		fixed = {-0.45, -0.5, -0.25, 0.45, 0, 0.45}}
+		type = "fixed", fixed = {-0.45, -0.5, -0.25, 0.45, 0, 0.45}}
 
 	tiles = {
 		pie .. "_top.png", pie .. "_bottom.png", pie .. "_side.png",
@@ -196,8 +189,7 @@ pie.register_pie = function(pie, desc)
 	-- 1/2 pie
 
 	nodebox = {
-		type = "fixed",
-		fixed = {-0.45, -0.5, 0.0, 0.45, 0, 0.45}}
+		type = "fixed", fixed = {-0.45, -0.5, 0.0, 0.45, 0, 0.45}}
 
 	tiles = {
 		pie .. "_top.png", pie .. "_bottom.png", pie .. "_side.png",
@@ -239,8 +231,7 @@ pie.register_pie = function(pie, desc)
 		pie .. "_side.png", pie .. "_side.png", pie .. "_inside.png"}
 
 	nodebox = {
-		type = "fixed",
-		fixed = {-0.45, -0.5, 0.25, 0.45, 0, 0.45}}
+		type = "fixed", fixed = {-0.45, -0.5, 0.25, 0.45, 0, 0.45}}
 
 	if quarters then
 
@@ -291,7 +282,7 @@ local i_sugar = mcl and "mcl_core:sugar" or "group:food_sugar"
 local i_wheat = mcl and "mcl_farming:wheat_item" or "group:food_wheat"
 local i_flour = mcl and "mcl_farming:bread" or "group:food_flour"
 local i_egg = mcl and "mcl_throwing:egg" or "group:food_egg"
-local i_milk = mcl and "mcl_mobitems:milk_bucket" or "group:food_milk"
+local i_milk = mcl and "mcl_mobitems:milk_bucket" or "group:food_milk_glass"
 local i_cocoa = mcl and "mcl_dye:brown" or "group:food_cocoa"
 local i_strawberry = mcl and "mcl_dye:red" or "group:food_strawberry"
 local i_coffee = mcl and "mcl_dye:black" or "group:food_coffee"
@@ -303,6 +294,7 @@ local i_bread = mcl and "mcl_farming:bread" or "group:food_bread"
 local i_orange = mcl and "mcl_dye:orange" or "group:food_orange"
 local i_bucket = mcl and "mcl_buckets:bucket_empty" or "bucket:bucket_empty"
 local i_bottle = mcl and "mcl_potions:glass_bottle" or "vessels:glass_bottle"
+local i_glass = mcl and "mcl_potions:glass_bottle" or "vessels:drinking"
 
 -- replacement items
 
@@ -311,7 +303,8 @@ local replace_these = {
 	{"mobs:wooden_bucket_milk", "wooden_bucket:bucket_wood_empty"},
 	{"mcl_mobitems:milk_bucket", i_bucket},
 	{"petz:bucket_milk", i_bucket},
-	{"cucina_vegana:soy_milk", i_bottle}
+	{"cucina_vegana:soy_milk", i_bottle},
+	{"group:food_milk_glass", i_glass}
 }
 
 -- normal cake recipe

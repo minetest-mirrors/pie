@@ -36,3 +36,6 @@ CalebDavis (CC0):
 
 Edited by Slightly (CC0):
   *_side_inside.png
+
+
+screenshot.jpg created using https://www.textstudio.com/
