@@ -25,8 +25,12 @@ end
 
 local function replace_pie(node, puncher, pos)
 
+	if not puncher or not puncher:is_player() then return end
+
+	local pname = puncher:get_player_name()
+
 	-- is this my pie?
-	if core.is_protected(pos, puncher:get_player_name()) then return end
+	if core.is_protected(pos, pname) then return end
 
 	-- which size of pie did we hit?
 	local pie = node.name:sub(1,-3)
@@ -53,51 +57,49 @@ local function replace_pie(node, puncher, pos)
 
 	-- eat slice or remove whole pie
 	if num == 3 then
-		node.name = "air"
-	elseif num < 3 then
-		node.name = pie .. "_" .. (num + 1)
-	end
 
-	core.swap_node(pos, node)
+		core.remove_node(pos)
+
+		core.check_for_falling(pos)
+
+	elseif num < 3 then
+
+		node.name = pie .. "_" .. (num + 1)
+
+		core.swap_node(pos, node)
+	end
 
 	if num == 3 then core.check_for_falling(pos) end
 
 	-- default eat sound
 	local sound = "default_dig_crumbly"
 
-	if hmod then -- Blockmen's hud_hunger mod
+	if hmod and hunger then -- Blockmen's hud_hunger mod
 
 		local h = hunger.read(puncher)
-
-		h = math.min(h + 4, 30)
-
-		local ok = hunger.update_hunger(puncher, h)
+		local ok = hunger.update_hunger(puncher, math.min(h + 4, 30))
 
 		sound = "hunger_eat"
 
-	elseif hbmod then -- Wuzzy's hbhunger mod
+	elseif hbmod and hbhunger then -- Wuzzy's hbhunger mod
 
-		local h = tonumber(hbhunger.hunger[puncher:get_player_name()])
+		local h = tonumber(hbhunger.hunger[pname])
 
-		h = math.min(h + 4, 30)
-
-		hbhunger.hunger[puncher:get_player_name()] = h
+		hbhunger.hunger[pname] = math.min(h + 4, 30)
 
 		sound = "hbhunger_eat_generic"
 
-	elseif stmod then -- Sofar's stamina mod
+	elseif stmod and stamina then -- Sofar or TenPlus1's stamina mod
 
 		stamina.change(puncher, 4)
 
 		sound = "stamina_eat"
 
-	elseif mclhunger then -- mineclone2 mcl_hunger mod
+	elseif mclhunger and mcl_hunger then -- mineclone2 mcl_hunger mod
 
 		local h = mcl_hunger.get_hunger(puncher)
 
-		h = math.min(h + 4, 20)
-
-		mcl_hunger.set_hunger(puncher, h)
+		mcl_hunger.set_hunger(puncher, math.min(h + 4, 20))
 
 		sound = "mcl_hunger_bite"
 
@@ -105,9 +107,7 @@ local function replace_pie(node, puncher, pos)
 
 		local h = puncher:get_hp()
 
-		h = math.min(h + 4, 20)
-
-		puncher:set_hp(h)
+		puncher:set_hp(math.min(h + 4, 20))
 	end
 
 	core.sound_play(sound, {pos = pos, gain = 0.7, max_hear_distance = 5}, true)
@@ -115,7 +115,7 @@ end
 
 -- pie registration function
 
-pie.register_pie = function(pie, desc)
+function pie.register_pie(name, desc)
 
 	-- full pie
 
@@ -123,18 +123,18 @@ pie.register_pie = function(pie, desc)
 		type = "fixed", fixed = {-0.45, -0.5, -0.45, 0.45, 0, 0.45}}
 
 	local tiles = {
-		pie .. "_top.png", pie .. "_bottom.png", pie .. "_side.png",
-		pie .. "_side.png", pie .. "_side.png", pie .. "_side.png"}
+		name .. "_top.png", name .. "_bottom.png", name .. "_side.png",
+		name .. "_side.png", name .. "_side.png", name .. "_side.png"}
 
-	core.register_node(":pie:" .. pie .. "_0", {
+	core.register_node(":pie:" .. name .. "_0", {
 		description = desc,
 		paramtype = "light",
 		paramtype2 = "facedir",
 		use_texture_alpha = "clip",
 		sunlight_propagates = false,
 		tiles = tiles,
-		inventory_image = pie .. "_inv.png",
-		wield_image = pie .. "_inv.png",
+		inventory_image = name .. "_inv.png",
+		wield_image = name .. "_inv.png",
 		drawtype = "nodebox",
 		node_box = nodebox,
 		sounds = cake_sound,
@@ -152,8 +152,8 @@ pie.register_pie = function(pie, desc)
 		type = "fixed", fixed = {-0.45, -0.5, -0.25, 0.45, 0, 0.45}}
 
 	tiles = {
-		pie .. "_top.png", pie .. "_bottom.png", pie .. "_side.png",
-		pie .. "_side.png", pie .. "_side.png", pie .. "_inside.png"}
+		name .. "_top.png", name .. "_bottom.png", name .. "_side.png",
+		name .. "_side.png", name .. "_side.png", name .. "_inside.png"}
 
 	if quarters then
 
@@ -162,11 +162,11 @@ pie.register_pie = function(pie, desc)
 			{-0.45, -0.5, 0, 0.45, 0, 0.45}}
 
 		tiles = {
-			pie .. "_top.png", pie .. "_bottom.png", pie .. "_side_inside.png^[transformFX",
-			pie .. "_side.png", pie .. "_side.png", pie .. "_side_inside.png"}
+			name .. "_top.png", name .. "_bottom.png", name .. "_side_inside.png^[transformFX",
+			name .. "_side.png", name .. "_side.png", name .. "_side_inside.png"}
 	end
 
-	core.register_node(":pie:" .. pie .. "_1", {
+	core.register_node(":pie:" .. name .. "_1", {
 		description = "3/4 " .. desc,
 		paramtype = "light",
 		paramtype2 = "facedir",
@@ -192,19 +192,19 @@ pie.register_pie = function(pie, desc)
 		type = "fixed", fixed = {-0.45, -0.5, 0.0, 0.45, 0, 0.45}}
 
 	tiles = {
-		pie .. "_top.png", pie .. "_bottom.png", pie .. "_side.png",
-		pie .. "_side.png", pie .. "_side.png", pie .. "_inside.png"}
+		name .. "_top.png", name .. "_bottom.png", name .. "_side.png",
+		name .. "_side.png", name .. "_side.png", name .. "_inside.png"}
 
 	if quarters then
 
 		nodebox.fixed = {-0.45, -0.5, -.45, 0, 0, 0.45}
 
 		tiles = {
-			pie .. "_top.png", pie .. "_bottom.png", pie .. "_inside.png",
-			pie .. "_side.png", pie .. "_side.png", pie .. "_side.png"}
+			name .. "_top.png", name .. "_bottom.png", name .. "_inside.png",
+			name .. "_side.png", name .. "_side.png", name .. "_side.png"}
 	end
 
-	core.register_node(":pie:" .. pie .. "_2", {
+	core.register_node(":pie:" .. name .. "_2", {
 		description = "Half " .. desc,
 		paramtype = "light",
 		paramtype2 = "facedir",
@@ -227,8 +227,8 @@ pie.register_pie = function(pie, desc)
 	-- 1/4 pie
 
 	tiles = {
-		pie .. "_top.png", pie .. "_bottom.png", pie .. "_side.png",
-		pie .. "_side.png", pie .. "_side.png", pie .. "_inside.png"}
+		name .. "_top.png", name .. "_bottom.png", name .. "_side.png",
+		name .. "_side.png", name .. "_side.png", name .. "_inside.png"}
 
 	nodebox = {
 		type = "fixed", fixed = {-0.45, -0.5, 0.25, 0.45, 0, 0.45}}
@@ -238,11 +238,11 @@ pie.register_pie = function(pie, desc)
 		nodebox.fixed = {-0.45, -0.5, 0.0, 0.0, 0, 0.45}
 
 		tiles = {
-			pie .. "_top.png", pie .. "_bottom.png", pie .. "_inside.png",
-			pie .. "_side.png", pie .. "_side.png", pie .. "_inside.png"}
+			name .. "_top.png", name .. "_bottom.png", name .. "_inside.png",
+			name .. "_side.png", name .. "_side.png", name .. "_inside.png"}
 	end
 
-	core.register_node(":pie:" .. pie .. "_3", {
+	core.register_node(":pie:" .. name .. "_3", {
 		description = "Piece of " .. desc,
 		paramtype = "light",
 		paramtype2 = "facedir",
@@ -295,6 +295,22 @@ local i_orange = mcl and "mcl_dye:orange" or "group:food_orange"
 local i_bucket = mcl and "mcl_buckets:bucket_empty" or "bucket:bucket_empty"
 local i_bottle = mcl and "mcl_potions:glass_bottle" or "vessels:glass_bottle"
 local i_glass = mcl and "mcl_potions:glass_bottle" or "vessels:drinking_glass"
+
+-- dye recipe items
+
+if core.settings:get_bool("pie.dye_recipes") then
+
+	i_sugar = mcl and "mcl_core:sugar" or "dye:white"
+	i_egg = mcl and "mcl_throwing:egg" or "dye:cyan"
+	i_milk = mcl and "mcl_mobitems:milk_bucket" or "dye:green"
+	i_cocoa = mcl and "mcl_dye:brown" or "dye:brown"
+	i_strawberry = mcl and "mcl_dye:red" or "dye:red"
+	i_coffee = mcl and "mcl_dye:black" or "dye:black"
+	i_cheese = mcl and "mcl_dye:yellow" or "dye:yellow"
+	i_meat = mcl and "mcl_mobitems:beef" or "dye:pink"
+	i_banana = mcl and "mcl_dye:yellow" or "dye:yellow"
+	i_orange = mcl and "mcl_dye:orange" or "dye:orange"
+end
 
 -- replacement items
 

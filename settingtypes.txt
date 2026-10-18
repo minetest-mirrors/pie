@@ -1,2 +1,5 @@
 #   Use pie quarters when eating instead of slices
 pie.quarters (Pie quarters) bool false
+
+#   Use dye in recipe instead of food items
+pie.dye_recipes (Use dye instead of food items to craft) bool false

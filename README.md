@@ -34,5 +34,6 @@ Change log:
 - 0.8 - Redo textures, make default optional, initial mineclone2 support
 - 0.9 - Added API for mods to create their own cakes, added more milk replacements
 - 1.0 - Added 'pie.quarters' setting to show pie quarters while eating instead of slices (thanks Slightly)
+- 1.1 - Tidied code and added 'pie.dye_recipes' for worlds that dont have all the ingredients.
 
 Lucky Blocks: 12
